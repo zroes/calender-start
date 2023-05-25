@@ -7,5 +7,8 @@ export const AppState = reactive({
   /** @type {import('./models/Account.js').Account} */
   account: {},
 
-  currentYear: new Year(new Date().getFullYear())
+  currentYear: new Year(new Date().getFullYear()),
+  currentMonth: new Date().getMonth(),
+
+  view: "year"
 })
