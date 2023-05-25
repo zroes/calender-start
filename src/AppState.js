@@ -8,7 +8,7 @@ export const AppState = reactive({
   account: {},
 
   currentYear: new Year(new Date().getFullYear()),
-  currentMonth: new Date().getMonth(),
+  currentMonth: parseInt(new Date().getMonth()),
 
   view: "year"
 })

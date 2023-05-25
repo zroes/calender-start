@@ -1,38 +1,45 @@
 <template>
-  <div class="container">
-
+  <div class="container-fluid">
+    <div class="row justify-content-center mt-2">
+      <div class="col-3 d-flex justify-content-center">
+        <button @click="monthDown()" class="btn btn-light"><i class="mdi mdi-arrow-left"></i></button>
+        <h1 class="mx-4">{{ months[monthIndex] }}</h1>
+        <button @click="monthUp()" class="btn btn-light"><i class="mdi mdi-arrow-right"></i></button>
+      </div>
+    </div>
     <div class="d-flex justify-content-end">
       <button class="btn btn-light" disabled>Month</button>
       <button class="btn btn-light" @click="setView('year')">Year</button>
       <button class="btn btn-light">Day</button>
     </div>
-    <div class="row">
+    <div class="row mx-4">
       <!-- <div class="col-3" v-for="(month, index) in Object.keys(year.months)"> -->
       <div class="px-3 mb-2">
 
-        <p class="text-secondary m-0">{{ month }}</p>
+        <p class="text-secondary m-0">{{ months[monthIndex] }}</p>
         <div class="row border border-dark">
           <div v-for="day in weekdays" class="col-week border border-grey">
-            <p class="text-center m-0 text-secondary" :title="day">{{ day.slice(0, 1) }}</p>
+            <p class="text-center m-0 text-secondary" :title="day">{{ day.slice(0, 3) }}</p>
           </div>
-          <div v-for="i in GetDay(month, 1, year.year)" class="col-week border border-grey">
-            <!-- Displays the days from the previous month -->
-            <div class="p-4">
-              <p class="m-0 text-secondary text-center">
-                {{ year.monthdays[monthIndex] - (GetDay(month, 1, year.year) - i) }}
+          <div v-for="i in GetDay(months[monthIndex], 1, year.year)" class="col-week border border-grey">
+            <div class="p-2 pb-4 mb-5">
+              <!-- Displays the days from the previous month -->
+              <p class="m-0 text-secondary">
+                {{ year.monthdays[monthIndex] - (GetDay(months[monthIndex], 1, year.year) - i) }}
               </p>
             </div>
           </div>
-          <div v-for="day in year.months[month]" class="col-week border border-grey">
-            <div class="p-4">
+          <div v-for="day in year.months[months[monthIndex]]" class="col-week border border-grey">
+            <div class="p-2 pb-4 mb-5">
               <!-- Displays the days from this month -->
-              <p class="m-0 text-center">{{ day }}</p>
+              <p class="m-0">{{ day }}</p>
             </div>
           </div>
-          <div v-for="i in 42 - (GetDay(month, 1, year.year) + year.months[month])" class="col-week border border-grey">
-            <div class="p-4">
+          <div v-for="i in 42 - (GetDay(months[monthIndex], 1, year.year) + year.months[months[monthIndex]])"
+            class="col-week border border-grey">
+            <div class="p-2 pb-4 mb-5">
               <!-- Displays the days from the next month -->
-              <p class="m-0 text-center text-secondary">{{ i }}</p>
+              <p class="m-0 text-secondary">{{ i }}</p>
             </div>
           </div>
         </div>
@@ -48,6 +55,8 @@ import { AppState } from "../AppState.js"
 import { logger } from "../utils/Logger.js"
 import Pop from "../utils/Pop.js"
 import { viewService } from "../services/ViewService.js"
+import { monthsService } from "../services/MonthsService.js"
+
 
 export default {
   setup() {
@@ -55,11 +64,19 @@ export default {
     let months = [
       "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
     ]
-    let monthIndex = new Date().getMonth()
+    let monthIndex = computed(() => AppState.currentMonth)
+    console.log(AppState.currentMonth)
     return {
+      monthUp() {
+        monthsService.monthUp()
+      },
+      monthDown() {
+        monthsService.monthDown()
+      },
       year: computed(() => AppState.currentYear),
-      month: months[monthIndex],
+      months,
       monthIndex,
+      // month: months[monthIndex],
       weekdays: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       setView() {
         viewService.changeView('year')
