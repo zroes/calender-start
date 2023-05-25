@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/calender-start/",
   plugins: [vue()],
   build: {
     outDir: 'docs',
