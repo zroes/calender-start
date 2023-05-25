@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center mt-2">
-      <div class="col-3 d-flex justify-content-center">
+      <div class="d-flex justify-content-center">
         <button @click="monthDown()" class="btn btn-light"><i class="mdi mdi-arrow-left"></i></button>
-        <h1 class="mx-4">{{ months[monthIndex] }}</h1>
+        <h1 class="col-3 text-center">{{ months[monthIndex] }}</h1>
         <button @click="monthUp()" class="btn btn-light"><i class="mdi mdi-arrow-right"></i></button>
       </div>
     </div>
@@ -16,7 +16,7 @@
       <!-- <div class="col-3" v-for="(month, index) in Object.keys(year.months)"> -->
       <div class="px-3 mb-2">
 
-        <p class="text-secondary m-0">{{ months[monthIndex] }}</p>
+        <p class="text-secondary m-0">{{ year.year }}</p>
         <div class="row border border-dark">
           <div v-for="day in weekdays" class="col-week border border-grey">
             <p class="text-center m-0 text-secondary" :title="day">{{ day.slice(0, 3) }}</p>
