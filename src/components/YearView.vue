@@ -17,7 +17,7 @@
         <div class="px-3 mb-2">
 
           <p class="text-secondary m-0">{{ month }}</p>
-          <div class="row border border-dark">
+          <div class="row border border-dark selectable" @click="setView('month'), setMonth(index)">
             <div v-for="day in weekdays" class="col-week border border-grey">
               <p class="text-center m-0 text-secondary" :title="day">{{ day.slice(0, 1) }}</p>
             </div>
@@ -53,6 +53,7 @@ import { computed } from "vue"
 import { AppState } from "../AppState.js"
 import { logger } from "../utils/Logger.js"
 import { yearsService } from "../services/YearsService.js"
+import { monthsService } from "../services/MonthsService.js"
 import { viewService } from "../services/ViewService.js"
 
 
@@ -71,6 +72,9 @@ export default {
       },
       setView(value) {
         viewService.changeView(value)
+      },
+      setMonth(index) {
+        monthsService.setMonth(index)
       },
       GetDay(month, day, year) {
         console.log(month, day, year)

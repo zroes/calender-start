@@ -20,6 +20,10 @@ class MonthsService {
       AppState.currentMonth -= 1
   }
 
+  setMonth(index) {
+    AppState.currentMonth = index
+  }
+
 }
 
 export const monthsService = new MonthsService()

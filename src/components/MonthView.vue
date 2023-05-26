@@ -21,7 +21,7 @@
           <div v-for="day in weekdays" class="col-week border border-grey">
             <p class="text-center m-0 text-secondary" :title="day">{{ day.slice(0, 3) }}</p>
           </div>
-          <div v-for="i in GetDay(months[monthIndex], 1, year.year)" class="col-week border border-grey">
+          <div v-for="i in GetDay(months[monthIndex], 1, year.year)" class="col-week border border-grey selectable">
             <div class="p-2 pb-4 mb-5">
               <!-- Displays the days from the previous month -->
               <p class="m-0 text-secondary">
@@ -29,14 +29,14 @@
               </p>
             </div>
           </div>
-          <div v-for="day in year.months[months[monthIndex]]" class="col-week border border-grey">
+          <div v-for="day in year.months[months[monthIndex]]" class="col-week border border-grey selectable">
             <div class="p-2 pb-4 mb-5">
               <!-- Displays the days from this month -->
               <p class="m-0">{{ day }}</p>
             </div>
           </div>
           <div v-for="i in 42 - (GetDay(months[monthIndex], 1, year.year) + year.months[months[monthIndex]])"
-            class="col-week border border-grey">
+            class="col-week border border-grey selectable">
             <div class="p-2 pb-4 mb-5">
               <!-- Displays the days from the next month -->
               <p class="m-0 text-secondary">{{ i }}</p>
